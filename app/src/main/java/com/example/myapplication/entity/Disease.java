@@ -7,27 +7,15 @@ public class Disease {
     private String name;
     private Set<String> symptoms;
 
-
     public Disease(String name, Set<String> symptoms) {
         this.name = name;
         this.symptoms = symptoms;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSymptoms(Set<String> symptoms) {
-        this.symptoms = symptoms;
-    }
-
-
-
     // getter方法
     public String getName() {
         return name;
     }
-
 
     public Set<String> getSymptoms() {
         return symptoms;

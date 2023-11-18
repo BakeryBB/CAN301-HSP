@@ -2,7 +2,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
     android:layout_gravity="end">
 
@@ -18,18 +17,14 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:textColor="#000000"
-            android:background="@drawable/user_message_bubble" /> <!-- Refer to the bubble drawable -->
+            android:background="@drawable/message_bubble" /> <!-- Refer to the bubble drawable -->
 
-
-        <com.google.android.material.imageview.ShapeableImageView
+        <ImageView
             android:id="@+id/iv_user"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/patient"
-            android:scaleType="centerCrop"
-            app:shapeAppearanceOverlay="@style/CircleImageViewStyle" />
-
+            android:layout_marginStart="8dp"
+            android:background="@drawable/avatar" /> <!-- Refer to the avatar drawable -->
 
     </LinearLayout>
 </FrameLayout>
