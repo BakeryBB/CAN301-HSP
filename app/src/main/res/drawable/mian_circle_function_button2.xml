@@ -3,6 +3,6 @@
     android:shape="oval">
     <solid android:color="#797ffe"/> <!-- 您可以更改为您想要的颜色 -->
     <size
-        android:width="100dp"
-        android:height="100dp"/>
+        android:width="50dp"
+        android:height="50p"/>
 </shape>

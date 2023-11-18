@@ -49,14 +49,6 @@
         android:contentDescription="@string/barrier"
         android:src="@drawable/barrier" />
 
-    <ImageView
-        android:id="@+id/btn_refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45px"
-        android:layout_toStartOf="@id/btn_logout"
-        android:contentDescription="@string/refresh"
-        android:src="@drawable/refresh" />
 
 
     <!-- 最近公告的白色圆角卡片 -->
@@ -91,7 +83,6 @@
     </androidx.cardview.widget.CardView>
     <!-- 横线 -->
 
-
     <!-- 功能区的大圆角卡片 -->
     <androidx.cardview.widget.CardView
         android:id="@+id/functionCard"
@@ -111,53 +102,104 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:columnCount="2"
-            android:orientation="horizontal"
-            android:padding="16dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
 
-            android:rowCount="2">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal"
+                android:paddingLeft="30dp">
+
+                <ImageButton
+                    android:id="@+id/btn_appoint"
+
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/mian_circle_function_button1"
+                    android:src="@drawable/main_appointment" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Appointment"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:paddingLeft="15dp"
+                    />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal"
+                android:paddingLeft="30dp">
 
                 <ImageButton
-                    android:layout_weight="1"
-                    android:id="@+id/btn_online_inquiry"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:id="@+id/btn_my_reservation"
+
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/mian_circle_function_button1"
-                    android:src="@drawable/main_inquiry" />
+                    android:src="@drawable/baseline_assignment_24"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Online Inquiry" />
+                    android:text="My Reservation"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:paddingLeft="15dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="30dp"
+                >
+
+                <ImageButton
+                    android:layout_weight="1"
+                    android:id="@+id/btn_online_inquiry"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/mian_circle_function_button2"
+                    android:src="@drawable/main_inquiry"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Online Inquiry"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:paddingLeft="15dp"/>
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginLeft="50dp"
-
+                android:layout_marginBottom="3dp"
                 android:gravity="center"
-                android:orientation="vertical"
-                tools:layout_marginTop="20dp">
+                android:orientation="horizontal"
+                android:paddingLeft="30dp">
 
                 <ImageButton
                     android:layout_weight="1"
                     android:id="@+id/btn_map"
 
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
 
                     android:background="@drawable/mian_circle_function_button2"
                     android:src="@drawable/main_map" />
@@ -165,7 +207,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Map" />
+                    android:text="Map"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:paddingLeft="15dp"/>
             </LinearLayout>
 
 
@@ -173,49 +218,31 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:layout_marginLeft="40dp"
+                android:layout_marginBottom="3dp"
 
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:paddingLeft="30dp">
 
                 <ImageButton
                     android:id="@+id/btn_health_education"
 
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/mian_circle_function_button2"
                     android:src="@drawable/main_health" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Health Education" />
+                    android:text="Health Education"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:paddingLeft="15dp"/>
             </LinearLayout>
 
 
             <!-- 预约按钮 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginLeft="45dp"
-                android:gravity="center"
-                android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/btn_appoint"
-
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:background="@drawable/mian_circle_function_button1"
-                    android:src="@drawable/main_appointment" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Appointment" />
-            </LinearLayout>
 
 
         </GridLayout>
@@ -228,74 +255,6 @@
 
 
 
-    <!-- 底部的白色横条 -->
-    <LinearLayout
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btn_home"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="-10dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/main_home_on" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="11dp"
-                android:layout_marginTop="-17dp"
-                android:text="Home" />
-        </LinearLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btn_my_reservation"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="-10dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/main_me_off" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="21dp"
-                android:layout_marginTop="-17dp"
-                android:text="Me" />
-        </LinearLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-    </LinearLayout>
 
 
 </RelativeLayout>
