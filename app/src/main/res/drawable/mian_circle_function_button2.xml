@@ -4,5 +4,5 @@
     <solid android:color="#797ffe"/> <!-- 您可以更改为您想要的颜色 -->
     <size
         android:width="50dp"
-        android:height="50p"/>
+        android:height="50dp"/>
 </shape>

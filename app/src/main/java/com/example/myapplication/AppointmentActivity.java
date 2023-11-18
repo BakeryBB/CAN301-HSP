@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class AppointmentActivity extends AppCompatActivity {
     @Override
@@ -29,6 +30,19 @@ public class AppointmentActivity extends AppCompatActivity {
         // match different doctors when choosing different departments
         Spinner doctorSpinner = findViewById(R.id.doctorSpinner);
 
-    }
 
+        DatabaseHelper db = new DatabaseHelper(this);
+        db.addDepartmentDoctor(new Department_doctor("SAT", "Bakery"));
+        db.addDepartmentDoctor(new Department_doctor("IBSS", "DADDY_YSY"));
+//        db.addDepartmentDoctor(new Department_doctor("ING", "cnm"));
+        Department_doctor dd = db.getDepartmentDoctor(4);
+        int i=db.delDepartmentDoctor(6);
+
+
+        Toast toast = Toast.makeText(getApplicationContext(), Integer.toString(i), Toast.LENGTH_LONG);
+
+        toast.show();
+//    }
+
+    }
 }
