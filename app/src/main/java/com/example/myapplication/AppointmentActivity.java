@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,14 +43,16 @@ public class AppointmentActivity extends AppCompatActivity {
         Spinner doctorSpinner = findViewById(R.id.doctorSpinner);
         DatePicker datePicker = findViewById(R.id.datePicker);
         submitButton.setOnClickListener(new View.OnClickListener() {
+            String selectedDepartment = "";
             @Override
             public void onClick(View v) {
                 // Get the selected items
-                final String[] selectedDepartment = {""};
+
                 departmentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        selectedDepartment[0] = parent.getItemAtPosition(position).toString();
+                        selectedDepartment = parent.getItemAtPosition(position).toString();
+
                         // Now 'selectedDepartment' holds the value of the selected item
                     }
                     });
@@ -58,7 +61,7 @@ public class AppointmentActivity extends AppCompatActivity {
                 String selectedDoctor = doctorSpinner.getSelectedItem().toString();
 
                 // Store the selections in a string
-                String reservationDetails = "Department: " + selectedDepartment[0] +
+                String reservationDetails = "Department: " + selectedDepartment +
                         ", Date: " + selectedDate +
                         ", Time: " + selectedTime +
                         ", Doctor: " + selectedDoctor;
@@ -66,7 +69,17 @@ public class AppointmentActivity extends AppCompatActivity {
 
                 Toast toast1 = Toast.makeText(getApplicationContext(), reservationDetails, Toast.LENGTH_LONG);
                 toast1.show();
+
+//                goToMainActivity();
             }
+//            private void goToMainActivity() {
+//                Intent intent = new Intent(AppointmentActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+
+
+
         });
 
 
