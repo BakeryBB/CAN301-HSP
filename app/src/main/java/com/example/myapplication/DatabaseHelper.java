@@ -8,8 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -24,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "(id integer primary key autoincrement, department text, doctor text)";
 
     private static final String CREATE_USER_RESERVATION = "create table user_reservation" +
-            "(id integer primary key autoincrement, user_id_num text, date text, time_slot text," +
+            "(id integer primary key autoincrement, user_id_num text, username text,date text, time_slot text," +
             "department text, doctor text)";
 
 
@@ -85,9 +89,57 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
+    public void addUserReservation(User_Reservation ur) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
 
+        values.put("user_id_num", ur.getUser_id_num());
+        values.put("username", ur.getUsername());
+        values.put("date", ur.getDate());
+        values.put("time_slot", ur.getTime_slot());
+        values.put("department", ur.getDepartment());
+        values.put("doctor", ur.getDoctor());
+        db.insert("user_reservation", null, values);
+        db.close();
+    }
 
+    public User_Reservation getUserReservation(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("user_reservation", new String[]{"id", "user_id_num",
+                        "username","date","time_slot","department","doctor"},
+                "id=?", new String[]{String.valueOf(id)}, null, null,
+                null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        User_Reservation ur = new User_Reservation(Integer.parseInt(cursor.getString(0))
+                , cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getString(6));
+        cursor.close();
+        db.close();
+        return ur;
+    }
 
+    public int delUserReservation(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = "id = ?";
+        String[] whereArgs = new String[]{String.valueOf(id)};
+        int deletedRow = db.delete("user_reservation", whereClause, whereArgs);
+        db.close();
+        return deletedRow;
+
+    }
+
+    public List<String> findDoctorsByDepartment(String department) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT doctor FROM department_doctor WHERE department = ?", new String[] {department});
+
+        List<String> doctors = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            doctors.add(cursor.getString(2));
+        }
+        cursor.close();
+        return doctors;
+    }
 
 
 

@@ -3,7 +3,10 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,11 +16,21 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AppointmentActivity extends AppCompatActivity {
+    private DatabaseHelper db;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appoint);
+        db = new DatabaseHelper(this);
+        db.addDepartmentDoctor(new Department_doctor("SAT", "Bakery"));
+        db.addDepartmentDoctor(new Department_doctor("IBSS", "DADDYYSY"));
+
 
         // set the selection of time spinner
         Spinner timeSpinner = findViewById(R.id.timeSpinner);
@@ -27,11 +40,10 @@ public class AppointmentActivity extends AppCompatActivity {
 
         // set the selection of doctor spinner
         Spinner docterSpinner = findViewById(R.id.doctorSpinner);
-        ArrayAdapter<CharSequence> doctor_adapter = ArrayAdapter.createFromResource(this,
-                R.array.department1_doctor, android.R.layout.simple_spinner_item);
-        docterSpinner.setAdapter(doctor_adapter);
 
-        // set the selection of different departments
+
+
+        // set the selection of  different departments
         ListView departmentListView = findViewById(R.id.departmentList);
         String[] departments = getResources().getStringArray(R.array.department_name);
         ArrayAdapter<String> department_adapter = new ArrayAdapter<>(this,
@@ -42,26 +54,36 @@ public class AppointmentActivity extends AppCompatActivity {
         Button submitButton = findViewById(R.id.submitReservationButton);
         Spinner doctorSpinner = findViewById(R.id.doctorSpinner);
         DatePicker datePicker = findViewById(R.id.datePicker);
+        final String[] selectedDepartment = {""};
+        final List<String>[] doctor_list = new List[]{null};
+        departmentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedDepartment[0] = parent.getItemAtPosition(position).toString();
+                Log.d("666",selectedDepartment[0]);
+                doctor_list[0] =db.findDoctorsByDepartment(selectedDepartment[0]);
+                ArrayAdapter<String> doctor_adapter = new ArrayAdapter<>(AppointmentActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,doctor_list[0]);
+                docterSpinner.setAdapter(doctor_adapter);
+
+                // Now 'selectedDepartment' holds the value of the selected item
+            }
+        });
+
+
+
         submitButton.setOnClickListener(new View.OnClickListener() {
-            String selectedDepartment = "";
+
             @Override
             public void onClick(View v) {
                 // Get the selected items
 
-                departmentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        selectedDepartment = parent.getItemAtPosition(position).toString();
 
-                        // Now 'selectedDepartment' holds the value of the selected item
-                    }
-                    });
                 String selectedDate = datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear();
                 String selectedTime = timeSpinner.getSelectedItem().toString();
                 String selectedDoctor = doctorSpinner.getSelectedItem().toString();
 
                 // Store the selections in a string
-                String reservationDetails = "Department: " + selectedDepartment +
+                String reservationDetails = "Department: " + selectedDepartment[0] +
                         ", Date: " + selectedDate +
                         ", Time: " + selectedTime +
                         ", Doctor: " + selectedDoctor;
@@ -70,13 +92,29 @@ public class AppointmentActivity extends AppCompatActivity {
                 Toast toast1 = Toast.makeText(getApplicationContext(), reservationDetails, Toast.LENGTH_LONG);
                 toast1.show();
 
-//                goToMainActivity();
+                db.addUserReservation(new User_Reservation("210105","BAIGOU",selectedDate,selectedTime,selectedDepartment[0],selectedDoctor));
+
+                goToMainActivity();
+
+
+
+
+
+
+
+
+
+
+
+
             }
-//            private void goToMainActivity() {
-//                Intent intent = new Intent(AppointmentActivity.this, MainActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
+            private void goToMainActivity() {
+                Intent intent = new Intent(AppointmentActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+
 
 
 
@@ -84,21 +122,18 @@ public class AppointmentActivity extends AppCompatActivity {
 
 
 
-        DatabaseHelper db = new DatabaseHelper(this);
-        db.addDepartmentDoctor(new Department_doctor("SAT", "Bakery"));
-        db.addDepartmentDoctor(new Department_doctor("IBSS", "DADDY_YSY"));
-//        db.addDepartmentDoctor(new Department_doctor("ING", "cnm"));
-        Department_doctor dd = db.getDepartmentDoctor(4);
-        int i=db.delDepartmentDoctor(6);
 
 
-        Toast toast = Toast.makeText(getApplicationContext(), Integer.toString(i), Toast.LENGTH_LONG);
 
-        toast.show();
+//        Toast toast = Toast.makeText(getApplicationContext(), Integer.toString(i), Toast.LENGTH_LONG);
+//
+//        toast.show();
 //    }
 //        int User_ID ;
 //        String User_Name ;
 
 
     }
+
+
 }

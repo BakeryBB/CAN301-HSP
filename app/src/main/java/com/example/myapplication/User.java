@@ -1,39 +1,48 @@
 package com.example.myapplication;
 
-public class User {
+public class User {//id idnum name passsword tel
     private  int id;
     private  String idnum;
+
+    private  String name;
     private  String password;
 
-    public User(){}
     private String tel;
-    public User(String idnum,String password){
+    public User(){}
+    public User(String idnum, String name, String password, String tel){
         super();
+        this.name = name;
         this.idnum = idnum;
         this.password = password;
         this.tel = tel;
     }
     public  int getId() {
-        return  id;
+        return  this.id;
     }
     public void setId(int id) {
         this.id = id;
     }
     public String getIdnum() {
-        return idnum;
+        return this.idnum;
     }
     public void setIdnum(String idnum) {
         this.idnum = idnum;
     }
+    public  String getName() {
+        return this.name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getPassword() {
-        return password;
+        return this.password;
     }
     public void setPassword(String password) {
         this.password = password;
     }
 
     public String getTel() {
-        return tel;
+        return this.tel;
     }
     public void setTel(String tel) {
         this.tel = tel;
@@ -43,3 +52,4 @@ public class User {
 
 
 }
+

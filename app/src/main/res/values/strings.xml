@@ -27,9 +27,9 @@
 </string-array>
 
 <string-array name="department_name">
-    <item>department1</item>
-    <item>department2</item>
-    <item>department3</item>
+    <item>SAT</item>
+    <item>IBSS</item>
+
 </string-array>
 
 <string-array name="department1_doctor">
