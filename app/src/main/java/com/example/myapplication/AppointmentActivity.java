@@ -32,17 +32,27 @@ public class AppointmentActivity extends AppCompatActivity {
 
 
         DatabaseHelper db = new DatabaseHelper(this);
-        db.addDepartmentDoctor(new Department_doctor("SAT", "Bakery"));
-        db.addDepartmentDoctor(new Department_doctor("IBSS", "DADDY_YSY"));
+//        db.addDepartmentDoctor(new Department_doctor("SAT", "Bakery"));
+//        db.addDepartmentDoctor(new Department_doctor("IBSS", "DADDY_YSY"));
 //        db.addDepartmentDoctor(new Department_doctor("ING", "cnm"));
-        Department_doctor dd = db.getDepartmentDoctor(4);
-        int i=db.delDepartmentDoctor(6);
+//        Department_doctor dd = db.getDepartmentDoctor(4);
+//        int i=db.delDepartmentDoctor(6);
 
 
-        Toast toast = Toast.makeText(getApplicationContext(), Integer.toString(i), Toast.LENGTH_LONG);
+//        Toast toast = Toast.makeText(getApplicationContext(), Integer.toString(i), Toast.LENGTH_LONG);
+//
+//        toast.show();
 
+        db.addUserReservation(new User_Reservation("210105", "由凇屹", "2023-11-19",
+                "14:00-15:00", "SAT", "Sam Smith"));
+        db.addUserReservation(new User_Reservation("210105", "由凇屹", "2023-11-19",
+                "14:00-15:00", "SAT", "Sam Smith"));
+        db.addUserReservation(new User_Reservation("210105", "由凇屹", "20sh23-11-19",
+                "14:00-15:00", "SAT", "Sam Smith"));
+        User_Reservation ur = db.getUserReservation(1);
+        Toast toast=Toast.makeText(getApplicationContext(), ur.getDepartment()+ur.getDoctor(), Toast.LENGTH_LONG);
         toast.show();
-//    }
+
 
     }
 }
