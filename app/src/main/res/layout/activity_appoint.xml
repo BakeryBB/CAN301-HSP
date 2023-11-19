@@ -74,6 +74,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <Button
+            android:id="@+id/submitReservationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit Reservation"
+            android:layout_centerInParent="true" />
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -91,6 +91,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
+
+
     //注册方法实现
     public long RegisterActivity(User u) {
         SQLiteDatabase db = getWritableDatabase();

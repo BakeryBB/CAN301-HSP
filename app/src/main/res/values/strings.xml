@@ -13,7 +13,9 @@
     <string name="me">me</string>
     <string name="home">home</string>
     <string name="announcement">Welcome to use the Hospital consultation registration platform, please see the 《Instructions》 for use.</string>
+
     <string-array name="spinner_time_am">
+        <item>Please Select</item>
     <item>8:00-8:30</item>
     <item>8:30-9:00</item>
     <item>9:00-9:30</item>
@@ -31,6 +33,7 @@
 </string-array>
 
 <string-array name="department1_doctor">
+    <item>Please Select</item>
     <item>Sophia Brown</item>
     <item>Ethan Wilson</item>
     <item>Oliver Williams</item>
