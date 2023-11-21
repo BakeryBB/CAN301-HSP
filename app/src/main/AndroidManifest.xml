@@ -34,8 +34,27 @@
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".indoormap2"
+            android:exported="false"/>
+        <activity
+            android:name=".Healthtips"
+            android:exported="false"/>
+        <activity
+            android:name=".Adolescenthealth"
+            android:exported="false"/>
+        <activity
+            android:name=".AIDSprevention"
+            android:exported="false"/>
+        <activity
+            android:name=".outdoormap"
+            android:exported="false"/>
+        <activity
+            android:name=".Postoperativerecovery"
+            android:exported="false"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
