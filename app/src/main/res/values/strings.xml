@@ -27,8 +27,9 @@
 </string-array>
 
 <string-array name="department_name">
-    <item>SAT</item>
     <item>IBSS</item>
+    <item>SAT</item>
+
 
 </string-array>
 

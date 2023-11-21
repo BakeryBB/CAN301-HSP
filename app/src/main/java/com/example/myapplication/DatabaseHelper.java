@@ -86,7 +86,51 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public long Register(User u){//
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
 
+        values.put("idnum", u.getIdnum());
+        values.put("name", u.getName());
+        values.put("password", u.getPassword());
+        values.put("tel", u.getTel());
+        db.close();
+        return db.insert(CREATE_USER,null,values);
+    }
+
+    public List<User> selectByUnameAndPsword(String idnum, String password) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(CREATE_USER, null, "idnum=? and pass=?", new String[]{idnum, password}, null, null, null);
+        List<User> userList = new ArrayList<>();
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                @SuppressLint("Range") String idnum1 = cursor.getString(cursor.getColumnIndex("idnum"));
+                @SuppressLint("Range") String password1 = cursor.getString(cursor.getColumnIndex("password"));
+                User user = new User();
+                user.setIdnum(idnum1);
+                user.setPassword(password1);
+                userList.add(user);
+            }
+            return userList;
+        }
+        return null;
+    }
+
+    public List<User> selectByUname(String idnum) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(CREATE_USER, null, "account=?", new String[]{idnum}, null, null, null);
+        List<User> userList = new ArrayList<>();
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                @SuppressLint("Range") String idnum1 = cursor.getString(cursor.getColumnIndex("idnum"));
+                User user = new User();
+                user.setIdnum(idnum1);
+                userList.add(user);
+            }
+            return userList;
+        }
+        return null;
+    }
 
 
     public void addUserReservation(User_Reservation ur) {
@@ -129,10 +173,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+
     public List<String> findDoctorsByDepartment(String department) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT doctor FROM department_doctor WHERE department = ?", new String[] {department});
-
+//        Cursor cursor = db.rawQuery("SELECT doctor FROM department_doctor WHERE department = ?", new String[] {department});
+        Cursor cursor = db.query("department_doctor", new String[]{"id","department","doctor"},
+                "department=?", new String[]{String.valueOf(department)}, null, null,
+                null, null);
         List<String> doctors = new ArrayList<>();
         while (cursor.moveToNext()) {
             doctors.add(cursor.getString(2));
