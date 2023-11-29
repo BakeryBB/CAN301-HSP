@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AppointmentActivity extends AppCompatActivity {
@@ -28,10 +31,15 @@ public class AppointmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appoint);
+
         db = new DatabaseHelper(this);
         db.addDepartmentDoctor(new Department_doctor("SAT", "Bakery"));
         db.addDepartmentDoctor(new Department_doctor("IBSS", "DADDYYSY"));
         btn_back= findViewById(R.id.backIcon);
+
+        DatePicker datePicker = findViewById(R.id.datePicker);
+        Calendar calendar = Calendar.getInstance();
+        datePicker.setMinDate(calendar.getTimeInMillis());
 
         // set the selection of time spinner
         Spinner timeSpinner = findViewById(R.id.timeSpinner);
@@ -42,8 +50,6 @@ public class AppointmentActivity extends AppCompatActivity {
         // set the selection of doctor spinner
         Spinner docterSpinner = findViewById(R.id.doctorSpinner);
 
-
-
         // set the selection of  different departments
         ListView departmentListView = findViewById(R.id.departmentList);
         String[] departments = getResources().getStringArray(R.array.department_name);
@@ -53,11 +59,8 @@ public class AppointmentActivity extends AppCompatActivity {
 
         // match different doctors when choosing different departments
         Button submitButton = findViewById(R.id.submitReservationButton);
-//        doctorSpinner = findViewById(R.id.doctorSpinner);
-        DatePicker datePicker = findViewById(R.id.datePicker);
         final String[] selectedDepartment = {""};
         final List<String>[] doctor_list = new List[]{null};
-
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +69,6 @@ public class AppointmentActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
         departmentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -79,15 +80,10 @@ public class AppointmentActivity extends AppCompatActivity {
                 // Now 'selectedDepartment' holds the value of the selected item
             }
         });
-
-
         submitButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // Get the selected items
-
-
                 String selectedDate = datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear();
                 String selectedTime = timeSpinner.getSelectedItem().toString();
                 String selectedDoctor = docterSpinner.getSelectedItem().toString();
@@ -98,13 +94,39 @@ public class AppointmentActivity extends AppCompatActivity {
                         ", Time: " + selectedTime +
                         ", Doctor: " + selectedDoctor;
 
-
                 Toast toast1 = Toast.makeText(getApplicationContext(), reservationDetails, Toast.LENGTH_LONG);
                 toast1.show();
 
-                db.addUserReservation(new User_Reservation("210105", "BAIGOU", selectedDate, selectedTime, selectedDepartment[0], selectedDoctor));
-                goToMainActivity();
+                if (selectedTime.equals("Please Select")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AppointmentActivity.this);
+                    builder.setMessage("Please select a time slot");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            timeSpinner.setSelection(0);
+                            ((ArrayAdapter) timeSpinner.getAdapter()).notifyDataSetChanged();
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.show();
+                } else if (selectedDoctor.equals("Please Select")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AppointmentActivity.this);
+                    builder.setMessage("Please select a doctor");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            docterSpinner.setSelection(0);
+                            ((ArrayAdapter) docterSpinner.getAdapter()).notifyDataSetChanged();
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.show();
+                }
+                else{
+                    goToMainActivity();
+                }
 
+                db.addUserReservation(new User_Reservation("210105", "BAIGOU", selectedDate, selectedTime, selectedDepartment[0], selectedDoctor));
 
             }
 
@@ -113,20 +135,6 @@ public class AppointmentActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-
-
         });
-
-
-//        Toast toast = Toast.makeText(getApplicationContext(), Integer.toString(i), Toast.LENGTH_LONG);
-//
-//        toast.show();
-//    }
-//        int User_ID ;
-//        String User_Name ;
-
-
     }
-
-
 }
